@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Student Result Portal - SMART COMPUTER & TRAINING CENTRE</title>
+<script src="https://cdn.tailwindcss.com"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cinzel:wght@700;800&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                background: #ffffff !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .a4-page {
+                box-shadow: none !important;
+                border: none !important;
+                margin: 0 !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                max-height: 297mm !important;
+                padding: 8mm 10mm !important;
+                page-break-after: always;
+                page-break-inside: avoid;
+                background: #ffffff !important;
+            }
+            input[type="number"]::-webkit-inner-spin-button,
+            input[type="number"]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+            input[type="number"] {
+                -moz-appearance: textfield;
+                border: none !important;
+                background: transparent !important;
+            }
+        }
+
+        .a4-page {
+            width: 210mm;
+            min-height: 297mm;
+            height: auto;
+            background: #ffffff;
+            margin: 20px auto;
+            padding: 8mm 10mm;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .outer-border {
+            border: 3px double #1e3a8a;
+            padding: 5px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #ffffff;
+        }
+
+        .inner-border {
+            border: 1px solid #3b82f6;
+            padding: 10px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #ffffff;
+        }
+
+        .heading-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        table, th, td {
+            border: 1px solid #cbd5e1;
+            border-collapse: collapse;
+        }
+
+        /* Inline table inputs */
+        .table-input {
+            width: 100%;
+            text-align: center;
+            background: transparent;
+            font-weight: 700;
+            outline: none;
+            border-radius: 4px;
+            padding: 2px;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+        .table-input-text {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            font-weight: 700;
+            outline: none;
+            border-radius: 4px;
+            padding: 2px 4px;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+        .table-input:hover, .table-input:focus,
+        .table-input-text:hover, .table-input-text:focus {
+            background-color: #f1f5f9;
+            box-shadow: inset 0 0 0 1px #3b82f6;
+        }
+    </style>
+<style>
+/* Student portal interface; original marksheet styles above are unchanged. */
+.portal-header{background:#0f172a;color:#fff;padding:18px 20px;border-bottom:3px solid #2563eb}.portal-header-inner{max-width:1100px;margin:auto;display:flex;align-items:center;gap:14px}.portal-logo{width:52px;height:52px;border-radius:12px;background:#1d4ed8;display:grid;place-items:center;font-weight:900;letter-spacing:1px;color:white}.portal-brand h2{font-size:18px;font-weight:900;margin:0}.portal-brand p{font-size:12px;color:#93c5fd;margin:4px 0 0}.portal-wrap{max-width:1100px;margin:28px auto;padding:0 16px 40px}.portal-search{background:white;border:1px solid #dbe3ef;border-radius:16px;padding:24px;box-shadow:0 10px 30px #0f172a12;margin-bottom:24px}.portal-search h2{font-size:22px;color:#10264b;font-weight:800;margin:0 0 6px}.portal-search p{color:#64748b;font-size:13px;margin:0 0 18px}.portal-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.portal-field label{display:block;font-size:13px;font-weight:700;color:#334155;margin-bottom:7px}.portal-field input{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;outline:none}.portal-field input:focus{border-color:#2563eb;box-shadow:0 0 0 3px #2563eb20}.portal-actions,.portal-result-tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.portal-btn{border:0;border-radius:9px;padding:11px 16px;font-size:13px;font-weight:800;cursor:pointer}.portal-primary{background:#1d4ed8;color:white}.portal-secondary{background:#e2e8f0;color:#334155}.portal-message{display:none;border-radius:9px;padding:12px 14px;margin:14px 0;font-size:13px}.portal-message.error{display:block;background:#fff1f2;color:#be123c;border:1px solid #fecdd3}.portal-message.info{display:block;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}.portal-result{display:none}.portal-result.show{display:block}.portal-result-tools{max-width:210mm;margin:0 auto 12px;justify-content:flex-end}.portal-result-tools .portal-btn{padding:9px 13px}.portal-result .a4-page{margin:0 auto 24px}@media(max-width:650px){.portal-fields{grid-template-columns:1fr}.portal-header-inner{align-items:flex-start}.portal-brand h2{font-size:14px}.portal-wrap{margin:18px auto;padding:0 9px 25px}.portal-search{padding:18px}.a4-page{transform-origin:top left;width:210mm;max-width:none;margin-left:0;margin-right:0}.portal-result{overflow-x:auto}.portal-result-tools{min-width:210mm}}
+@media print{body{background:#fff!important}.portal-header,.portal-search,.portal-message,.portal-result-tools,.portal-footer{display:none!important}.portal-wrap{margin:0!important;padding:0!important;max-width:none!important}.portal-result{display:block!important;overflow:visible!important}.portal-result .a4-page{margin:0!important}.no-print{display:none!important}}
+/* Refined white-and-glass portal theme */
+html{background:#fff} body{background:#fff!important;color:#172554}
+.portal-header{background:rgba(255,255,255,.88);color:#10264b;border-bottom:3px solid #d4af37;box-shadow:0 8px 30px rgba(15,23,42,.07);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.portal-logo{background:linear-gradient(135deg,#102b63,#2563eb);box-shadow:0 8px 20px #1d4ed82b;border:1px solid #ffffff80}
+.portal-brand h2{font-size:clamp(20px,3vw,30px);font-weight:1000;letter-spacing:.025em;color:#102b63;text-shadow:0 1px 0 #fff}
+.portal-brand p{color:#64748b}
+.portal-search{background:rgba(255,255,255,.78);border:1px solid rgba(148,163,184,.34);border-radius:22px;box-shadow:0 18px 55px rgba(15,23,42,.08),inset 0 1px 0 rgba(255,255,255,.95);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.portal-search h2{color:#102b63}.portal-field input{background:rgba(255,255,255,.92);border:1px solid #cbd5e1;border-radius:12px;transition:all .22s ease}.portal-field input:focus{border-color:#2563eb;box-shadow:0 0 0 4px #2563eb18,0 8px 20px #1d4ed810}
+.portal-btn{border-radius:12px;transition:transform .2s ease,box-shadow .2s ease,filter .2s ease}.portal-btn:hover{transform:translateY(-2px);filter:saturate(1.12)}.portal-primary{background:linear-gradient(135deg,#102b63,#2563eb);box-shadow:0 8px 18px #1d4ed82b}.portal-secondary{background:#f1f5f9;border:1px solid #dbe3ef}
+.a4-page{background:#fff;border-radius:18px;box-shadow:0 24px 70px rgba(15,23,42,.12),0 0 0 1px rgba(148,163,184,.22);overflow:hidden}
+.outer-border{border:3px double #183b7a;border-radius:10px;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(248,250,255,.9));}
+.inner-border{border:1px solid rgba(37,99,235,.52);border-radius:6px;background:rgba(255,255,255,.94);}
+.heading-font{letter-spacing:.025em}.inner-border h1.heading-font{font-size:clamp(22px,2.2vw,30px)!important;font-weight:1000!important;line-height:1.12!important;text-shadow:0 1px 0 #fff,0 3px 12px rgba(30,58,138,.08)}
+.inner-border .bg-gradient-to-r{box-shadow:0 4px 12px rgba(30,58,138,.12)}
+.inner-border table{border-color:#cbd5e1}.inner-border th,.inner-border td{border-color:#d5deeb}
+.inner-border td.bg-blue-50\/60{background:rgba(219,234,254,.68)}
+#dispStatus{display:inline-block;border-radius:999px;padding:3px 10px!important;background:rgba(16,185,129,.10);border:1px solid rgba(16,185,129,.28);letter-spacing:.06em}#dispStatus.text-red-600{background:rgba(239,68,68,.09);border-color:rgba(239,68,68,.3)}
+#qrcode{padding:4px;border:2px solid #000;border-radius:8px;background:#fff;box-sizing:content-box}
+@media(max-width:650px){.portal-brand h2{font-size:20px}.portal-logo{width:44px;height:44px;flex-shrink:0}.portal-header{padding:15px 12px}.portal-result .a4-page{border-radius:0}}
+@media print{.a4-page{border-radius:0!important;box-shadow:none!important;overflow:visible!important}.outer-border{border-radius:0!important}.inner-border{border-radius:0!important}.portal-header,.portal-search{display:none!important}}
+</style></head>
+<body class="min-h-screen text-slate-800 antialiased">
+<header class="portal-header no-print"><div class="portal-header-inner"><div class="portal-logo">SCTC</div><div class="portal-brand"><h2>SMART COMPUTER &amp; TRAINING CENTRE</h2><p>Student Result Portal · Online Student Results</p></div></div></header>
+<main class="portal-wrap"><section class="portal-search no-print"><h2>Online Result Verification</h2><p>Enter both your Roll Number and Registration Number to view the marksheet.</p><form id="lookupForm"><div class="portal-fields"><div class="portal-field"><label for="roll">Roll Number</label><input id="roll" required autocomplete="off" placeholder="Enter Roll Number"></div><div class="portal-field"><label for="reg">Registration Number</label><input id="reg" required autocomplete="off" placeholder="Enter Registration Number"></div></div><div class="portal-actions"><button class="portal-btn portal-primary" id="searchBtn" type="submit">View Result →</button><button class="portal-btn portal-secondary" type="reset">Clear</button></div></form></section><div id="message" class="portal-message no-print" role="status" aria-live="polite"></div><section id="result" class="portal-result" aria-live="polite"><div class="portal-result-tools no-print"><button class="portal-btn portal-primary" id="printBtn" type="button">Print</button></div>
+    <!-- ORIGINAL A4 MARKSHEET TEMPLATE: layout and data fields retained -->
+    <div class="a4-page">
+        <div class="outer-border">
+            <div class="inner-border">
+                
+                <!-- HEADER SECTION -->
+                <div>
+                    <div class="flex items-center justify-between border-b-2 border-blue-900 pb-2 mb-2">
+                        <!-- Header Title -->
+                        <div class="text-center flex-1 px-2">
+                            <h1 class="heading-font text-2xl font-black tracking-tight text-blue-950 uppercase leading-none">
+                                SMART COMPUTER & TRAINING CENTRE
+                            </h1>
+                            <p class="text-[9.5px] font-bold text-amber-700 tracking-wider mt-1 uppercase">
+                                Reg. Under ICT & Vocational Skill Development Authority
+                            </p>
+                            <div class="mt-1.5 inline-block bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-amber-300 font-extrabold text-xs px-6 py-0.5 rounded-full tracking-widest uppercase shadow-sm border border-amber-400/40">
+                                ACADEMIC TRANSCRIPT
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STUDENT INFORMATION TABLE -->
+                    <div class="mb-2">
+                        <div class="bg-gradient-to-r from-blue-900 to-indigo-900 text-white text-[10px] font-bold px-2.5 py-0.5 flex items-center justify-between uppercase tracking-wider rounded-t-sm">
+                            <span><i class="fa-solid fa-id-card text-amber-300 mr-1.5"></i> Student Details</span>
+
+                        </div>
+                        <table class="w-full text-[11px] border-collapse">
+                            <tbody>
+                                <tr>
+                                    <td class="font-bold bg-blue-50/60 p-1 w-28 text-blue-950">Roll Number</td>
+                                    <td class="p-1 font-extrabold text-blue-900" id="dispRoll">2024101234</td>
+                                    <td class="font-bold bg-blue-50/60 p-1 w-32 text-blue-950">Registration No</td>
+                                    <td class="p-1 font-bold text-slate-800" id="dispReg">SCTC-2023-987</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold bg-blue-50/60 p-1 text-blue-950">Student's Name</td>
+                                    <td class="p-1 font-black text-slate-950 uppercase" id="dispName">MD. RAHMAN AHMED</td>
+                                    <td class="font-bold bg-blue-50/60 p-1 text-blue-950">Father's Name</td>
+                                    <td class="p-1 uppercase text-slate-800" id="dispFather">ABDUS SAMAD KHAN</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold bg-blue-50/60 p-1 text-blue-950">Mother's Name</td>
+                                    <td class="p-1 uppercase text-slate-800" id="dispMother">AMINA BEGUM</td>
+                                    <td class="font-bold bg-blue-50/60 p-1 text-blue-950">Date of Birth</td>
+                                    <td class="p-1 text-slate-800 font-medium" id="dispDob">15-MAR-2005</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold bg-blue-50/60 p-1 text-blue-950">Course Title</td>
+                                    <td class="p-1 font-extrabold text-blue-950" id="dispCourse">Diploma in Computer Science (DCS)</td>
+                                    <td class="font-bold bg-blue-50/60 p-1 text-blue-950">Academic Session</td>
+                                    <td class="p-1 text-slate-800" id="dispYear">2023-2024</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold bg-blue-50/60 p-1 text-blue-950">Result Issue Date</td>
+                                    <td class="p-1 font-semibold text-slate-800" id="dispResultDate">30-APR-2026</td>
+                                    <td class="font-bold bg-blue-50/60 p-1 text-blue-950">Passing Status</td>
+                                    <td class="p-1 font-extrabold uppercase" id="dispStatus">PASSED</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- SUBJECT MARKS TABLE (SN COLUMN, NO SUBJECT CODE) -->
+                    <div class="mb-2">
+                        <div class="bg-gradient-to-r from-blue-900 to-indigo-900 text-white text-[10px] font-bold px-2.5 py-0.5 flex items-center justify-between uppercase tracking-wider rounded-t-sm">
+                            <span><i class="fa-solid fa-list-check text-amber-300 mr-1.5"></i> Academic Performance Record</span>
+                        </div>
+                        <table class="w-full text-[10.5px] text-center border-collapse">
+                            <thead class="bg-blue-100/80 font-extrabold text-blue-950 uppercase border-b border-blue-300">
+                                <tr>
+                                    <th class="p-1 w-10">SN</th>
+                                    <th class="p-1 text-left">Subject Title</th>
+                                    <th class="p-1 w-24">Total Marks</th>
+                                    <th class="p-1 w-28">Obtained Marks</th>
+                                    <th class="p-1 w-20">Grade</th>
+                                    <th class="p-1 w-20">GP</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subjectTableBody"></tbody>
+                            <tfoot class="bg-blue-50/90 font-bold text-[10.5px]">
+                                <tr>
+                                    <td colspan="2" class="text-right p-1 uppercase font-black text-blue-950">Grand Total Marks:</td>
+                                    <td class="p-1 font-black text-slate-950" id="grandTotalMax">0</td>
+                                    <td class="p-1 font-black text-slate-950" id="grandTotalObtained">0</td>
+                                    <td colspan="2" class="p-1 bg-amber-100 text-blue-950 border-amber-300">
+                                        <span class="font-extrabold">CGPA: </span>
+                                        <span id="cgpaDisplay" class="font-black text-blue-950 text-xs">0.00 (F)</span>
+                                    </td>
+                                    <td class="no-print"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- GRADING SYSTEM & QR CODE SECTION -->
+                <div class="mt-2">
+                    <div class="grid grid-cols-12 gap-2 items-center">
+                        <!-- Grading Scale Table -->
+                        <div class="col-span-8">
+                            <div class="text-[9px] font-black uppercase mb-0.5 text-blue-950 border-b border-blue-300 pb-0.5">
+                                Grading Scale & Evaluation Criteria
+                            </div>
+                            <table class="w-full text-[8.5px] text-center border-collapse">
+                                <thead class="bg-blue-900 text-white font-bold">
+                                    <tr>
+                                        <th class="p-0.5">Marks Range (%)</th>
+                                        <th class="p-0.5">Letter Grade</th>
+                                        <th class="p-0.5">Grade Point (GP)</th>
+                                        <th class="p-0.5">Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white"><td>80% - 100%</td><td class="font-extrabold text-blue-900">A+</td><td>4.00</td><td>Outstanding</td></tr>
+                                    <tr class="bg-slate-50"><td>70% - 79%</td><td class="font-extrabold text-blue-900">A</td><td>3.75</td><td>Excellent</td></tr>
+                                    <tr class="bg-white"><td>60% - 69%</td><td class="font-extrabold text-blue-900">A-</td><td>3.50</td><td>Very Good</td></tr>
+                                    <tr class="bg-slate-50"><td>50% - 59%</td><td class="font-extrabold text-blue-900">B</td><td>3.00</td><td>Good</td></tr>
+                                    <tr class="bg-white"><td>40% - 49%</td><td class="font-extrabold text-blue-900">C</td><td>2.00</td><td>Average</td></tr>
+                                    <tr class="bg-slate-50"><td>0% - 39%</td><td class="font-extrabold text-red-600">F</td><td>0.00</td><td>Fail</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Target QR Code -->
+                        <div class="col-span-4 flex flex-col items-center justify-center border border-blue-200 p-1.5 rounded-md bg-gradient-to-b from-white to-blue-50/50">
+                            <div id="qrcode" class="p-1 bg-white border-2 border-black rounded shadow-sm"></div>
+                            <span class="text-[8px] font-bold mt-1 text-blue-950 flex items-center gap-1 uppercase">
+                                <i class="fa-solid fa-qrcode text-amber-600"></i> Scan to Verify Result
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- DIGITAL SIGNATURES -->
+                    <div class="mt-8 pt-2 flex justify-between items-end text-center">
+                        <!-- Controller Signature -->
+                        <div class="w-48 flex flex-col items-center">
+                            <div class="h-10 flex items-end justify-center mb-1">
+                                <img id="dispControllerSign" src="" class="max-h-10 object-contain hidden" alt="Controller Signature">
+                            </div>
+                            <div class="border-b-2 border-blue-950 w-full mb-1"></div>
+                            <p class="text-[10px] font-black uppercase text-blue-950">Controller of Examinations</p>
+                            <p class="text-[8px] text-slate-600 font-bold">SMART COMPUTER & TRAINING CENTRE</p>
+                        </div>
+
+                        <!-- Principal Signature -->
+                        <div class="w-48 flex flex-col items-center">
+                            <div class="h-10 flex items-end justify-center mb-1">
+                                <img id="dispPrincipalSign" src="" class="max-h-10 object-contain hidden" alt="Principal Signature">
+                            </div>
+                            <div class="border-b-2 border-blue-950 w-full mb-1"></div>
+                            <p class="text-[10px] font-black uppercase text-blue-950">Principal / Director</p>
+                            <p class="text-[8px] text-slate-600 font-bold">SMART COMPUTER & TRAINING CENTRE</p>
+                        </div>
+                    </div>
+
+                    <!-- Footer Note -->
+                    <div class="mt-4 pt-1 border-t border-slate-300 text-[8px] text-slate-500 flex justify-between font-medium">
+                        <span>* Pass mark is 40% per subject. Official electronic transcript copy.</span>
+                        <span>SCTC Result Verification System</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</section><footer class="portal-footer no-print text-center text-slate-400 text-xs mt-6">© <span id="yearNow"></span> SMART COMPUTER &amp; TRAINING CENTRE · Official Result Portal</footer></main>
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycbzKZerViZe2idxNO7DIdXAotHSW76NVP08GnAudyAcpxThpX2eprmW1mMFS87ctKB7oIA/exec';
+// Upload these PNG files to this website path, or replace these URLs with your actual hosted PNG links.
+const CONTROLLER_SIGNATURE_PNG_URL = 'https://github.com/smartcomputer-bd/result_view/blob/main/Controller%20Sign.png?raw=true';
+const PRINCIPAL_SIGNATURE_PNG_URL = 'https://github.com/smartcomputer-bd/result_view/blob/main/Director%20Sign.png?raw=true';
+const RESULT_VERIFY_URL = 'https://smartcomputer-bd.github.io/com';
+/* Hosted QR PNG fallback: upload qr-code.png to this website path or replace with your actual PNG URL. */
+const QR_CODE_PNG_URL = 'https://github.com/smartcomputer-bd/result_view/blob/main/QR%20Code.png?raw=true';
+const $ = id => document.getElementById(id); $('yearNow').textContent = new Date().getFullYear();
+function showMessage(text,kind='error'){const m=$('message');m.className='portal-message no-print '+kind;m.textContent=text;}function clearMessage(){const m=$('message');m.className='portal-message no-print';m.textContent='';}
+function setText(id,v){const e=$(id);if(e)e.textContent=(v===undefined||v===null||v==='')?'---':String(v);}
+function formatDate(v){
+  if(v===undefined||v===null||String(v).trim()==='') return '---';
+  const raw=String(v).trim();
+  const months=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  let y,mo,day,d=null;
+  let m=raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if(m){y=+m[1];mo=+m[2]-1;day=+m[3];}
+  if(!m){
+    m=raw.match(/^(\d{1,2})[-/ ]([A-Za-z]{3,}|\d{1,2})[-/ ,](\d{4})$/);
+    if(m){day=+m[1];mo=/^\d+$/.test(m[2])?+m[2]-1:months.indexOf(m[2].slice(0,3).toUpperCase());y=+m[3];}
+  }
+  if(!m){
+    m=raw.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/);
+    if(m){mo=+m[1]-1;day=+m[2];y=+m[3];}
+  }
+  if(y!==undefined&&mo>=0&&mo<12&&day>=1&&day<=31){d=new Date(y,mo,day);if(d.getFullYear()!==y||d.getMonth()!==mo||d.getDate()!==day)d=null;}
+  if(!d){const parsed=new Date(raw);if(!isNaN(parsed.getTime()))d=parsed;}
+  if(!d||isNaN(d.getTime()))return raw.toUpperCase();
+  return String(d.getDate()).padStart(2,'0')+'-'+months[d.getMonth()]+'-'+d.getFullYear();
+}
+function setImg(id,src,fallback){const e=$(id);if(!e)return;const candidate=(src&&(/^https?:\/\//i.test(src)||/^data:image\//i.test(src)))?src:fallback;if(candidate){e.src=candidate;e.onerror=()=>{e.style.display='none';};e.style.display='';}else{e.removeAttribute('src');e.style.display='none';}}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function renderResult(r){
+setText('dispRoll',r.roll);setText('dispReg',r.reg);setText('dispName',r.name);setText('dispFather',r.father);setText('dispMother',r.mother);setText('dispDob',formatDate(r.dob));setText('dispCourse',r.course);setText('dispYear',r.year);setText('dispResultDate',formatDate(r.resultDate));
+// Institution logo and student photo are intentionally not displayed on the public marksheet.
+setImg('dispControllerSign',r.controllerSignUrl,CONTROLLER_SIGNATURE_PNG_URL);setImg('dispPrincipalSign',r.principalSignUrl,PRINCIPAL_SIGNATURE_PNG_URL);$('dispControllerSign').classList.remove('hidden');$('dispPrincipalSign').classList.remove('hidden');
+const subs=Array.isArray(r.subjects)?r.subjects:[];let totalMax=0,totalObt=0,points=0,failed=false;const tbody=$('subjectTableBody');tbody.innerHTML='';if(!subs.length){tbody.innerHTML='<tr><td colspan="6" class="p-3 text-center text-slate-400">No subject data available</td></tr>';}subs.forEach((s,i)=>{const max=Number(s.total)||0,obt=Number(s.obtained)||0,pct=max?obt/max*100:0;const grade=s.grade|| (pct>=80?'A+':pct>=70?'A':pct>=60?'A-':pct>=50?'B':pct>=40?'C':'F');const gp=Number(s.point)||0;if(grade==='F')failed=true;totalMax+=max;totalObt+=obt;points+=gp;const tr=document.createElement('tr');tr.className='hover:bg-blue-50/50 transition';tr.innerHTML=`<td class="p-1 font-bold text-slate-700 bg-slate-50/50">${i+1}</td><td class="p-1 text-left font-bold text-blue-950">${esc(s.title||'')}</td><td class="p-1">${max}</td><td class="p-1 font-black text-slate-950">${obt}</td><td class="p-1 font-black ${grade==='F'?'text-red-600':'text-blue-900'}">${esc(grade)}</td><td class="p-1 font-extrabold text-slate-800">${gp.toFixed(2)}</td>`;tbody.appendChild(tr);});
+setText('grandTotalMax',r.grandTotalMax||totalMax);setText('grandTotalObtained',r.grandTotalObtained||totalObt);const cg=String(r.cgpaDisplay|| (subs.length?(points/subs.length).toFixed(2):'0.00')+'');setText('cgpaDisplay',cg);const status=String(r.status||'').toUpperCase();const isFail=status.includes('FAIL')||failed;const st=$('dispStatus');st.textContent=isFail?'FAIL':'PASSED';st.className='p-1 font-extrabold uppercase '+(isFail?'text-red-600':'text-emerald-700');
+$('qrcode').innerHTML='';
+if(window.QRCode){
+  new QRCode($('qrcode'),{text:RESULT_VERIFY_URL,width:58,height:58,colorDark:'#000000',colorLight:'#ffffff'});
+} else {
+  const qrImg=document.createElement('img');qrImg.src=QR_CODE_PNG_URL;qrImg.alt='QR Code';qrImg.width=58;qrImg.height=58;
+  qrImg.onerror=()=>{qrImg.style.display='none';};$('qrcode').appendChild(qrImg);
+}
+$('result').classList.add('show');clearMessage();$('result').scrollIntoView({behavior:'smooth',block:'start'});}
+function lookupJsonp(roll,reg){return new Promise((resolve,reject)=>{const cb='sctcResultCb_'+Date.now()+'_'+Math.floor(Math.random()*100000);const script=document.createElement('script');let done=false;const timer=setTimeout(()=>finish(new Error('The request timed out. Please check your internet connection or API URL.')),18000);function finish(err,data){if(done)return;done=true;clearTimeout(timer);delete window[cb];script.remove();err?reject(err):resolve(data);}window[cb]=data=>finish(null,data);script.onerror=()=>finish(new Error('Could not connect to the result server. Please check the API URL and deployment.'));const u=new URL(API_URL);u.searchParams.set('action','lookup');u.searchParams.set('roll',roll);u.searchParams.set('reg',reg);u.searchParams.set('callback',cb);script.src=u.toString();document.body.appendChild(script);});}
+$('lookupForm').addEventListener('submit',async e=>{e.preventDefault();clearMessage();$('result').classList.remove('show');const roll=$('roll').value.trim(),reg=$('reg').value.trim();if(!roll||!reg){showMessage('Please enter both Roll Number and Registration Number.');return;}if(API_URL.includes('PASTE_YOUR')){showMessage('Before publishing the website, enter your Apps Script Web App /exec URL in API_URL.');return;}const b=$('searchBtn');b.disabled=true;b.textContent='Searching…';showMessage('Searching for the result. Please wait.','info');try{const data=await lookupJsonp(roll,reg);if(data&&data.ok&&data.result)renderResult(data.result);else showMessage(data?.message||'No result found. Please verify the details and try again.');}catch(err){showMessage(err.message||'Unable to retrieve the result.');}finally{b.disabled=false;b.textContent='View Result →';}});
+$('lookupForm').addEventListener('reset',()=>setTimeout(()=>{clearMessage();$('result').classList.remove('show');},0));$('printBtn').addEventListener('click',()=>window.print());
+</script></body></html>
